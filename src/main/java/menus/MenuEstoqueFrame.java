@@ -54,7 +54,6 @@ public class MenuEstoqueFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 listarItens();
-                // Oculta a coluna "ID"
                 tabelaEstoque.getColumnModel().getColumn(0).setMinWidth(0);
                 tabelaEstoque.getColumnModel().getColumn(0).setMaxWidth(0);
                 tabelaEstoque.getColumnModel().getColumn(0).setWidth(0);
@@ -104,7 +103,6 @@ public class MenuEstoqueFrame extends JFrame {
                     String fornecedorSelecionado = comboFornecedores.getSelectedItem().toString();
                     int idFornecedor = Integer.parseInt(fornecedorSelecionado.split("-")[0].trim());
 
-                    // Lógica para adicionar um item ao estoque
                     String codigo = JOptionPane.showInputDialog("Digite o código do item:");
                     String nome = JOptionPane.showInputDialog("Digite o nome do item:");
                     double preco = Double.parseDouble(JOptionPane.showInputDialog("Digite o preço do item:"));
@@ -195,7 +193,6 @@ public class MenuEstoqueFrame extends JFrame {
                 ResultSet rs = stmt.executeQuery();
 
                 if (rs.next()) {
-                    // Criar um formulário para editar os campos
                     JTextField txtCodigo = new JTextField(rs.getString("codigo"));
                     JTextField txtNome = new JTextField(rs.getString("nome"));
                     JTextField txtPreco = new JTextField(String.valueOf(rs.getDouble("preco")));
@@ -215,7 +212,6 @@ public class MenuEstoqueFrame extends JFrame {
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                     if (result == JOptionPane.OK_OPTION) {
-                        // Atualizar o item com os novos valores
                         atualizarItem(idItem, txtCodigo.getText(), txtNome.getText(),
                                 Double.parseDouble(txtPreco.getText()), Integer.parseInt(txtQuantidade.getText()));
                     }

@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import mmx.ConexaoDB;
 
@@ -78,7 +78,7 @@ public class MenuPrincipalFrame extends JFrame {
 
         getContentPane().add(panel);
 
-        pack();
+        setSize(800, 600);
         setLocationRelativeTo(null);
     }
 

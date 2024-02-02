@@ -83,6 +83,7 @@ public class MenuLoginFrame extends JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }
 
     private void btnLoginActionPerformed(ActionEvent evt) {
@@ -93,7 +94,7 @@ public class MenuLoginFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Login bem-sucedido!");
             MenuPrincipalFrame menuPrincipal = new MenuPrincipalFrame(nome, senha);
             menuPrincipal.setVisible(true);
-            this.dispose(); // Fecha a janela de login após abrir o MenuPrincipalFrame
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Nome de usuário ou senha incorretos.");
         }
@@ -107,7 +108,7 @@ public class MenuLoginFrame extends JFrame {
             ps.setString(2, senha);
 
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // Se houver resultados, significa que o login é válido
+                return rs.next();
             }
 
         } catch (SQLException e) {

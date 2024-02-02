@@ -1,14 +1,13 @@
 package menus;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,17 +19,8 @@ import mmx.ConexaoDB;
 public class DetalhesUsuarioFrame extends JFrame {
 
     private String nomeUsuario;
-    private JTextField txtNome;
-    private JTextField txtCpf;
-    private JTextField txtEndereco;
-    private JTextField txtDataNascimento;
-    private JTextField txtProfissao;
-    private JTextField txtSalario;
-    private JTextField txtTelefone;
-    private JTextField txtSenha;
-
-    private JButton btnSalvarAlteracoes;
-    private JButton btnExcluir;
+    private JTextField txtNome, txtCpf, txtEndereco, txtDataNascimento, txtProfissao, txtSalario, txtTelefone, txtSenha;
+    private JButton btnSalvarAlteracoes, btnExcluir;
 
     public DetalhesUsuarioFrame(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
@@ -43,23 +33,30 @@ public class DetalhesUsuarioFrame extends JFrame {
         setTitle("Detalhes do Usuário");
 
         JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(9, 2, 5, 5));
 
         JLabel lblNome = new JLabel("Nome:");
-        JLabel lblCpf = new JLabel("CPF:");
-        JLabel lblEndereco = new JLabel("Endereço:");
-        JLabel lblDataNascimento = new JLabel("Data de Nascimento:");
-        JLabel lblProfissao = new JLabel("Profissão:");
-        JLabel lblSalario = new JLabel("Salário:");
-        JLabel lblTelefone = new JLabel("Telefone:");
-        JLabel lblSenha = new JLabel("Senha:");
-
         txtNome = new JTextField(30);
+
+        JLabel lblCpf = new JLabel("CPF:");
         txtCpf = new JTextField(15);
+
+        JLabel lblEndereco = new JLabel("Endereço:");
         txtEndereco = new JTextField(50);
+
+        JLabel lblDataNascimento = new JLabel("Data de Nascimento:");
         txtDataNascimento = new JTextField(10);
+
+        JLabel lblProfissao = new JLabel("Profissão:");
         txtProfissao = new JTextField(20);
+
+        JLabel lblSalario = new JLabel("Salário:");
         txtSalario = new JTextField(10);
+
+        JLabel lblTelefone = new JLabel("Telefone:");
         txtTelefone = new JTextField(15);
+
+        JLabel lblSenha = new JLabel("Senha:");
         txtSenha = new JTextField(15);
 
         btnSalvarAlteracoes = new JButton("Salvar Alterações");
@@ -78,28 +75,24 @@ public class DetalhesUsuarioFrame extends JFrame {
             }
         });
 
-        panel.add(lblNome);
-        panel.add(txtNome);
-        panel.add(lblCpf);
-        panel.add(txtCpf);
-        panel.add(lblEndereco);
-        panel.add(txtEndereco);
-        panel.add(lblDataNascimento);
-        panel.add(txtDataNascimento);
-        panel.add(lblProfissao);
-        panel.add(txtProfissao);
-        panel.add(lblSalario);
-        panel.add(txtSalario);
-        panel.add(lblTelefone);
-        panel.add(txtTelefone);
-        panel.add(lblSenha);
-        panel.add(txtSenha);
-        panel.add(btnSalvarAlteracoes);
-        panel.add(btnExcluir);
+        panel.add(lblNome); panel.add(txtNome);
+        panel.add(lblCpf); panel.add(txtCpf);
+        panel.add(lblEndereco); panel.add(txtEndereco);
+        panel.add(lblDataNascimento); panel.add(txtDataNascimento);
+        panel.add(lblProfissao); panel.add(txtProfissao);
+        panel.add(lblSalario); panel.add(txtSalario);
+        panel.add(lblTelefone); panel.add(txtTelefone);
+        panel.add(lblSenha); panel.add(txtSenha);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(btnSalvarAlteracoes);
+        buttonPanel.add(btnExcluir);
 
         getContentPane().add(panel);
+        getContentPane().add(buttonPanel);
 
-        pack();
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setSize(400, 300);
         setLocationRelativeTo(null);
     }
 
@@ -121,7 +114,7 @@ public class DetalhesUsuarioFrame extends JFrame {
                     txtSenha.setText(rs.getString("senha"));
                 } else {
                     JOptionPane.showMessageDialog(this, "Usuário não encontrado.");
-                    dispose(); // Fecha a janela se o usuário não for encontrado
+                    dispose();
                 }
             }
 
@@ -180,7 +173,7 @@ public class DetalhesUsuarioFrame extends JFrame {
 
                 if (linhasAfetadas > 0) {
                     JOptionPane.showMessageDialog(this, "Usuário excluído com sucesso!");
-                    dispose(); // Fecha a janela após excluir o usuário
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Nenhuma exclusão realizada.");
                 }

@@ -1,5 +1,6 @@
 package menus;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -15,15 +16,7 @@ import mmx.ConexaoDB;
 
 public class FormularioCadastroUsuario extends JFrame {
 
-    private JTextField txtNome;
-    private JTextField txtCpf;
-    private JTextField txtEndereco;
-    private JTextField txtDataNascimento;
-    private JTextField txtProfissao;
-    private JTextField txtSalario;
-    private JTextField txtTelefone;
-    private JTextField txtSenha;
-
+    private JTextField txtNome, txtCpf, txtEndereco, txtDataNascimento, txtProfissao, txtSalario, txtTelefone, txtSenha;
     private JButton btnCadastrar;
 
     public FormularioCadastroUsuario() {
@@ -35,23 +28,30 @@ public class FormularioCadastroUsuario extends JFrame {
         setTitle("Cadastro de Usuário");
 
         JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(9, 2, 5, 5));
 
         JLabel lblNome = new JLabel("Nome:");
-        JLabel lblCpf = new JLabel("CPF:");
-        JLabel lblEndereco = new JLabel("Endereço:");
-        JLabel lblDataNascimento = new JLabel("Data de Nascimento (AAAA-MM-DD):");
-        JLabel lblProfissao = new JLabel("Profissão:");
-        JLabel lblSalario = new JLabel("Salário:");
-        JLabel lblTelefone = new JLabel("Telefone:");
-        JLabel lblSenha = new JLabel("Senha:");
-
         txtNome = new JTextField(30);
+
+        JLabel lblCpf = new JLabel("CPF:");
         txtCpf = new JTextField(15);
+
+        JLabel lblEndereco = new JLabel("Endereço:");
         txtEndereco = new JTextField(50);
+
+        JLabel lblDataNascimento = new JLabel("Data de Nascimento (AAAA-MM-DD):");
         txtDataNascimento = new JTextField(10);
+
+        JLabel lblProfissao = new JLabel("Profissão:");
         txtProfissao = new JTextField(20);
+
+        JLabel lblSalario = new JLabel("Salário:");
         txtSalario = new JTextField(10);
+
+        JLabel lblTelefone = new JLabel("Telefone:");
         txtTelefone = new JTextField(15);
+
+        JLabel lblSenha = new JLabel("Senha:");
         txtSenha = new JTextField(15);
 
         btnCadastrar = new JButton("Cadastrar Usuário");
@@ -62,27 +62,19 @@ public class FormularioCadastroUsuario extends JFrame {
             }
         });
 
-        panel.add(lblNome);
-        panel.add(txtNome);
-        panel.add(lblCpf);
-        panel.add(txtCpf);
-        panel.add(lblEndereco);
-        panel.add(txtEndereco);
-        panel.add(lblDataNascimento);
-        panel.add(txtDataNascimento);
-        panel.add(lblProfissao);
-        panel.add(txtProfissao);
-        panel.add(lblSalario);
-        panel.add(txtSalario);
-        panel.add(lblTelefone);
-        panel.add(txtTelefone);
-        panel.add(lblSenha);
-        panel.add(txtSenha);
+        panel.add(lblNome); panel.add(txtNome);
+        panel.add(lblCpf); panel.add(txtCpf);
+        panel.add(lblEndereco); panel.add(txtEndereco);
+        panel.add(lblDataNascimento); panel.add(txtDataNascimento);
+        panel.add(lblProfissao); panel.add(txtProfissao);
+        panel.add(lblSalario); panel.add(txtSalario);
+        panel.add(lblTelefone); panel.add(txtTelefone);
+        panel.add(lblSenha); panel.add(txtSenha);
         panel.add(btnCadastrar);
 
         getContentPane().add(panel);
 
-        pack();
+        setSize(400, 300);
         setLocationRelativeTo(null);
     }
 

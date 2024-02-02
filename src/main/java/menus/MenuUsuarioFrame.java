@@ -12,14 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import mmx.ConexaoDB;
 
 public class MenuUsuarioFrame extends JFrame {
 
     private JButton btnCadastrarUsuario;
-    private JButton btnSelecionarUsuario;
-    private JComboBox<String> cbUsuarios;
+    private JButton btnListarUsuarios;
 
     public MenuUsuarioFrame() {
         initComponents();
@@ -39,24 +37,20 @@ public class MenuUsuarioFrame extends JFrame {
             }
         });
 
-        btnSelecionarUsuario = new JButton("Selecionar Usuário");
-        btnSelecionarUsuario.addActionListener(new ActionListener() {
+        btnListarUsuarios = new JButton("Editar Usuários");
+        btnListarUsuarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                btnSelecionarUsuarioActionPerformed(evt);
+                btnListarUsuariosActionPerformed(evt);
             }
         });
 
-        cbUsuarios = new JComboBox<>();
-        carregarUsuarios();
-
         panel.add(btnCadastrarUsuario);
-        panel.add(btnSelecionarUsuario);
-        panel.add(cbUsuarios);
+        panel.add(btnListarUsuarios);
 
         getContentPane().add(panel);
 
-        pack();
+        setSize(800, 600);
         setLocationRelativeTo(null);
     }
 
@@ -64,16 +58,31 @@ public class MenuUsuarioFrame extends JFrame {
         new FormularioCadastroUsuario().setVisible(true);
     }
 
-    private void btnSelecionarUsuarioActionPerformed(ActionEvent evt) {
-        String usuarioSelecionado = (String) cbUsuarios.getSelectedItem();
-        if (usuarioSelecionado != null) {
-            new DetalhesUsuarioFrame(usuarioSelecionado).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um usuário antes de prosseguir.");
+    private void btnListarUsuariosActionPerformed(ActionEvent evt) {
+        JComboBox<String> cbUsuarios = new JComboBox<>();
+        carregarUsuarios(cbUsuarios);
+
+        int escolha = JOptionPane.showOptionDialog(
+                this,
+                cbUsuarios,
+                "Selecione um usuário para editar",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                null,
+                null);
+
+        if (escolha == JOptionPane.OK_OPTION) {
+            String usuarioSelecionado = (String) cbUsuarios.getSelectedItem();
+            if (usuarioSelecionado != null) {
+                new DetalhesUsuarioFrame(usuarioSelecionado).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um usuário antes de prosseguir.");
+            }
         }
     }
 
-    private void carregarUsuarios() {
+    private void carregarUsuarios(JComboBox<String> cbUsuarios) {
         cbUsuarios.removeAllItems();
 
         try (Connection conexao = ConexaoDB.obterConexao();
