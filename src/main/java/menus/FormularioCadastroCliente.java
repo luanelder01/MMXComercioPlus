@@ -1,5 +1,6 @@
 package menus;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -15,12 +16,7 @@ import mmx.ConexaoDB;
 
 public class FormularioCadastroCliente extends JFrame {
 
-    private JTextField txtNome;
-    private JTextField txtCpf;
-    private JTextField txtEndereco;
-    private JTextField txtDataNascimento;
-    private JTextField txtTelefone;
-
+    private JTextField txtNome, txtCpf, txtEndereco, txtDataNascimento, txtTelefone;
     private JButton btnCadastrar;
 
     public FormularioCadastroCliente() {
@@ -32,17 +28,21 @@ public class FormularioCadastroCliente extends JFrame {
         setTitle("Cadastro de Cliente");
 
         JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 2, 5, 5));
 
         JLabel lblNome = new JLabel("Nome:");
-        JLabel lblCpf = new JLabel("CPF:");
-        JLabel lblEndereco = new JLabel("Endereço:");
-        JLabel lblDataNascimento = new JLabel("Data de Nascimento (AAAA-MM-DD):");
-        JLabel lblTelefone = new JLabel("Telefone:");
-
         txtNome = new JTextField(30);
+
+        JLabel lblCpf = new JLabel("CPF:");
         txtCpf = new JTextField(15);
+
+        JLabel lblEndereco = new JLabel("Endereço:");
         txtEndereco = new JTextField(50);
+
+        JLabel lblDataNascimento = new JLabel("Data de Nascimento (AAAA-MM-DD):");
         txtDataNascimento = new JTextField(10);
+
+        JLabel lblTelefone = new JLabel("Telefone:");
         txtTelefone = new JTextField(15);
 
         btnCadastrar = new JButton("Cadastrar Cliente");
@@ -53,16 +53,11 @@ public class FormularioCadastroCliente extends JFrame {
             }
         });
 
-        panel.add(lblNome);
-        panel.add(txtNome);
-        panel.add(lblCpf);
-        panel.add(txtCpf);
-        panel.add(lblEndereco);
-        panel.add(txtEndereco);
-        panel.add(lblDataNascimento);
-        panel.add(txtDataNascimento);
-        panel.add(lblTelefone);
-        panel.add(txtTelefone);
+        panel.add(lblNome); panel.add(txtNome);
+        panel.add(lblCpf); panel.add(txtCpf);
+        panel.add(lblEndereco); panel.add(txtEndereco);
+        panel.add(lblDataNascimento); panel.add(txtDataNascimento);
+        panel.add(lblTelefone); panel.add(txtTelefone);
         panel.add(btnCadastrar);
 
         getContentPane().add(panel);
