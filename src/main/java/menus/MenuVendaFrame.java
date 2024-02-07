@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MenuVendaFrame extends JFrame {
     private JComboBox<String> comboClientes, comboUsuarios, comboProdutos;
-    private JButton btnIniciarVenda, btnAdicionarAoCarrinho, btnFinalizar;
+    private JButton btnIniciarVenda, btnAdicionarAoCarrinho, btnFinalizar, btnVoltar;
     private JTextField txtQuantidade;
     private JTextArea txtCarrinho;
     private JLabel lblValorTotal;
@@ -42,11 +42,13 @@ public class MenuVendaFrame extends JFrame {
         panelUsuarios.add(comboUsuarios);
 
         btnIniciarVenda = new JButton("Iniciar Venda");
+        btnVoltar = new JButton("Voltar");
 
         JPanel panelSuperior = new JPanel();
         panelSuperior.add(panelClientes);
         panelSuperior.add(panelUsuarios);
         panelSuperior.add(btnIniciarVenda);
+        panelSuperior.add(btnVoltar);
 
         add(panelSuperior, BorderLayout.NORTH);
 
@@ -56,6 +58,13 @@ public class MenuVendaFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 iniciarVenda();
+            }
+        });
+
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                voltarMenuPrincipal();
             }
         });
 
@@ -355,6 +364,12 @@ public class MenuVendaFrame extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao carregar usuários do banco de dados.");
         }
+    }
+
+    private void voltarMenuPrincipal() {
+        MenuPrincipalFrame menuPrincipal = new MenuPrincipalFrame("NomeUsuario", "SenhaUsuario");
+        menuPrincipal.setVisible(true);
+        this.dispose();
     }
 
     public static void main(String[] args) {
