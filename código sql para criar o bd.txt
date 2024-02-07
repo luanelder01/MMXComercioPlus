@@ -1,0 +1,127 @@
+-- código sql para criar o banco de dados:
+-- usuario utilizado root, senha CocaCola123-
+-- Conectar ou criar o banco de dados
+CREATE DATABASE IF NOT EXISTS mmxdb;
+USE mmxdb;
+
+-- Tabela de Usuários
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    endereco VARCHAR(255) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    profissao VARCHAR(50) NOT NULL,
+    salario DECIMAL(10, 2) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+
+-- Tabela de Clientes
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    endereco VARCHAR(255) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    telefone VARCHAR(15) NOT NULL
+);
+
+-- Tabela de Fornecedores
+CREATE TABLE fornecedores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cnpj VARCHAR(18) NOT NULL UNIQUE,
+    endereco VARCHAR(255) NOT NULL,
+    telefone VARCHAR(15) NOT NULL
+);
+
+-- Tabela de Estoque
+CREATE TABLE estoque (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    id_fornecedor INT,
+    quantidade INT NOT NULL,
+    FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id)
+);
+
+-- Tabela de Vendas
+CREATE TABLE vendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_operador INT,
+    valor_total DECIMAL(10, 2) NOT NULL,
+    data_venda DATE NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id),
+    FOREIGN KEY (id_operador) REFERENCES usuarios(id)
+);
+
+-- Tabela de ItensVenda (para armazenar os produtos vendidos em cada venda)
+CREATE TABLE itensvenda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_venda INT,
+    id_produto INT,
+    quantidade INT NOT NULL,
+    valor_unitario DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_venda) REFERENCES vendas(id),
+    FOREIGN KEY (id_produto) REFERENCES estoque(id)
+);
+
+-- Inserir dados na tabela clientes
+INSERT INTO clientes (nome, cpf, endereco, data_nascimento, telefone)
+VALUES 
+    ('Maria Silva', '123.456.789-01', 'Rua A, 123', '1985-05-20', '11 98765-4321'),
+    ('José Oliveira', '234.567.890-12', 'Avenida B, 456', '1990-03-15', '21 99876-5432'),
+    ('Ana Souza', '345.678.901-23', 'Rua C, 789', '1982-12-10', '31 98765-1234'),
+    ('Carlos Santos', '456.789.012-34', 'Avenida D, 1011', '1995-08-25', '41 99876-9876'),
+    ('Fernanda Lima', '567.890.123-45', 'Rua E, 1213', '1988-04-05', '51 98765-5678'),
+    ('Ricardo Pereira', '678.901.234-56', 'Avenida F, 1415', '1977-11-15', '61 99876-8765'),
+    ('Camila Oliveira', '789.012.345-67', 'Rua G, 1617', '1992-06-20', '71 98765-8765'),
+    ('Daniel Costa', '890.123.456-78', 'Avenida H, 1819', '1980-09-30', '81 99876-5432'),
+    ('Patrícia Rocha', '901.234.567-89', 'Rua I, 2021', '1989-02-18', '91 98765-2345'),
+    ('Lucas Martins', '012.345.678-90', 'Avenida J, 2223', '1997-07-08', '14 99876-2345');
+
+-- Inserir dados na tabela fornecedores
+INSERT INTO fornecedores (nome, cnpj, endereco, telefone)
+VALUES 
+    ('Distribuidora ABC', '12.345.678/0001-01', 'Rua Comercial, 123', '11 5555-1234'),
+    ('Indústria XYZ', '23.456.789/0001-02', 'Avenida Industrial, 456', '21 5555-2345'),
+    ('Atacadista LMN', '34.567.890/0001-03', 'Rua dos Negócios, 789', '31 5555-3456'),
+    ('Fornecedores S.A.', '45.678.901/0001-04', 'Avenida das Ofertas, 1011', '41 5555-4567'),
+    ('Comércio Rápido Ltda.', '56.789.012/0001-05', 'Rua da Logística, 1213', '51 5555-5678'),
+    ('Distribuidora Veloz', '67.890.123/0001-06', 'Avenida Expressa, 1415', '61 5555-6789'),
+    ('Indústria Global', '78.901.234/0001-07', 'Rua Internacional, 1617', '71 5555-7890'),
+    ('Atacarejo Top', '89.012.345/0001-08', 'Avenida da Economia, 1819', '81 5555-8901'),
+    ('Mercado Supremo', '90.123.456/0001-09', 'Rua da Qualidade, 2021', '91 5555-9012'),
+    ('Comércio em Alta', '01.234.567/0001-10', 'Avenida das Novidades, 2223', '14 5555-0123');
+
+-- Inserir dados na tabela estoque
+INSERT INTO estoque (codigo, nome, preco, id_fornecedor, quantidade)
+VALUES 
+    ('PROD001', 'Arroz Tio João 5kg', 10.99, 1, 200),
+    ('PROD002', 'Feijão Preto Camil 1kg', 5.49, 2, 150),
+    ('PROD003', 'Óleo de Soja Liza 900ml', 3.99, 3, 100),
+    ('PROD004', 'Açúcar União 2kg', 7.99, 4, 120),
+    ('PROD005', 'Café Melitta Tradicional 500g', 9.89, 5, 80),
+    ('PROD006', 'Macarrão Petybon 1kg', 4.29, 6, 120),
+    ('PROD007', 'Leite Ninho 800g', 18.99, 7, 90),
+    ('PROD008', 'Detergente Ypê 500ml', 2.49, 8, 150),
+    ('PROD009', 'Sabão em Pó Omo 2kg', 12.79, 9, 100),
+    ('PROD010', 'Desinfetante Pinho Sol 500ml', 4.99, 10, 120);
+
+-- Inserir dados na tabela usuarios
+INSERT INTO usuarios (nome, cpf, endereco, data_nascimento, profissao, salario, telefone, senha)
+VALUES
+('Gustavo', '123.456.789-09', 'Rua Exemplo, 123', '1990-05-15', 'Administrador', 5000.00, '31 9999-9999', '123'),
+('Ana Silva', '987.654.321-01', 'Avenida Principal, 456', '1985-12-22', 'Analista de Marketing', 4000.00, '31 8888-8888', 'senha123'),
+('Carlos Santos', '456.789.012-34', 'Travessa do Centro, 789', '1988-08-10', 'Engenheiro Civil', 6000.00, '31 7777-7777', 'senha456'),
+('Juliana Oliveira', '234.567.890-45', 'Praça da Liberdade, 112', '1995-03-28', 'Contadora', 5500.00, '31 6666-6666', 'senha789'),
+('Ricardo Pereira', '789.012.345-67', 'Alameda dos Sonhos, 876', '1980-11-05', 'Advogado', 7000.00, '31 5555-5555', 'senhaABC'),
+('Fernanda Lima', '345.678.901-23', 'Avenida dos Artistas, 321', '1992-09-18', 'Arquiteta', 6500.00, '31 4444-4444', 'senhaDEF'),
+('Pedro Souza', '012.345.678-90', 'Rua da Esquina, 543', '1983-07-14', 'Programador', 5500.00, '31 3333-3333', 'senhaGHI'),
+('Camila Santos', '901.234.567-89', 'Rua das Flores, 876', '1998-01-30', 'Estudante', 0.00, '31 2222-2222', 'senhaJKL'),
+('Lucas Oliveira', '567.890.123-45', 'Avenida dos Esportes, 987', '1987-06-25', 'Professor', 4500.00, '31 1111-1111', 'senhaMNO'),
+('Mariana Costa', '210.987.654-32', 'Praia da Felicidade, 654', '1993-04-12', 'Médica', 8000.00, '31 0000-0000', 'senhaPQR');
+
