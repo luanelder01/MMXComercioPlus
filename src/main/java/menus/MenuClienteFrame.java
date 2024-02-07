@@ -1,5 +1,8 @@
 package menus;
 
+import mmx.ConexaoDB;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -8,20 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import mmx.ConexaoDB;
 
 public class MenuClienteFrame extends JFrame {
 
     private JButton btnCadastrarCliente;
     private JButton btnListarClientes;
+    private JFrame telaAtual;
 
     public MenuClienteFrame() {
+        this.telaAtual = this;
         initComponents();
     }
 
@@ -49,6 +47,9 @@ public class MenuClienteFrame extends JFrame {
 
         panel.add(btnCadastrarCliente);
         panel.add(btnListarClientes);
+
+        BotaoVoltar botaoVoltar = new BotaoVoltar(this);
+        panel.add(botaoVoltar);
 
         getContentPane().add(panel);
 
