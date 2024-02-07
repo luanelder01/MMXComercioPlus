@@ -73,6 +73,10 @@ public class MenuEstoqueFrame extends JFrame {
                 removerItem();
             }
         });
+
+
+        BotaoVoltar btnVoltar = new BotaoVoltar(this);
+        painelBotoes.add(btnVoltar);
     }
 
     private void adicionarItem() {

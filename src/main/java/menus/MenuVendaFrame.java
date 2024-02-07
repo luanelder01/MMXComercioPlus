@@ -17,6 +17,8 @@ public class MenuVendaFrame extends JFrame {
     private JTextArea txtCarrinho;
     private JLabel lblValorTotal;
     private double valorTotal;
+
+
     private List<ItemVenda> carrinho;
 
     private static final String URL = "jdbc:mysql://localhost:3306/mmxdb";
